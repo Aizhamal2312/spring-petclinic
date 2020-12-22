@@ -1,7 +1,8 @@
-FROM python
+FROM openjdk:8
 LABEL maintainer="jakusya1991@gmail.com"
-COPY Flaskex/ /Flaskex/
-WORKDIR /Flaskex/
-RUN pip install -r requirements.txt
-EXPOSE 5000
-CMD ["python", "app.py"]
+COPY spring-petclinic/ /spring-petclinic/
+WORKDIR /spring-petclinic/
+RUN ./mvnw package
+EXPOSE 8080
+WORKDIR /spring-petclinic/target/
+CMD ["java", "-jar", "spring-petclinic-2.3.1.BUILD-SNAPSHOT.jar"]
